@@ -8,7 +8,9 @@ resource "azurerm_windows_function_app" "windows_function_app" {
   site_config {
     always_on = each.value.site_config.always_on
   }
-  storage_account_name = each.value.storage_account_name
+  storage_account_name          = each.value.storage_account_name
+  storage_uses_managed_identity = each.value.storage_uses_managed_identity
+  functions_extension_version   = each.value.functions_extension_version
 
 }
 
@@ -24,7 +26,9 @@ resource "azurerm_windows_function_app_slot" "windows_function_app" {
   site_config {
     always_on = each.value.site_config.always_on
   }
-  storage_account_name = each.value.storage_account_name
+  storage_account_name          = each.value.storage_account_name
+  storage_uses_managed_identity = each.value.storage_uses_managed_identity
+  functions_extension_version   = each.value.functions_extension_version
 
 }
 
