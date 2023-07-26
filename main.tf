@@ -19,6 +19,8 @@ resource "azurerm_windows_function_app" "windows_function_app" {
   storage_uses_managed_identity = each.value.storage_uses_managed_identity
   functions_extension_version   = each.value.functions_extension_version
 
+  virtual_network_subnet_id = each.value.virtual_network_subnet_integration_subnet_id
+
 }
 
 resource "azurerm_windows_function_app_slot" "windows_function_app" {
