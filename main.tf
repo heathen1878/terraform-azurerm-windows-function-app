@@ -5,9 +5,16 @@ resource "azurerm_windows_function_app" "windows_function_app" {
   resource_group_name = each.value.resource_group_name
   location            = each.value.location
   service_plan_id     = each.value.service_plan_id
+
   site_config {
     always_on = each.value.site_config.always_on
   }
+
+  identity {
+    type         = each.value.identity.type
+    identity_ids = each.value.identity.identity_ids
+  }
+
   storage_account_name          = each.value.storage_account_name
   storage_uses_managed_identity = each.value.storage_uses_managed_identity
   functions_extension_version   = each.value.functions_extension_version
