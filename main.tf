@@ -68,7 +68,7 @@ resource "azurerm_private_endpoint" "windows_function_app" {
 resource "azurerm_private_endpoint" "windows_function_app_slot" {
   for_each = {
     for key, value in var.windows_function_apps : key => value
-    if value.enable_private_endpoint == true
+    if value.deploy_slot == true && value.enable_private_endpoint == true
   }
 
   name                          = format("pep-staging-%s", each.value.name)
