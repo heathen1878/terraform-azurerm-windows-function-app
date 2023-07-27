@@ -93,14 +93,15 @@ resource "azurerm_windows_function_app" "windows_function_app" {
     WEBSITE_CONTENTSHARE = format("%s-content", substr(each.value.name, 5, -1))
   })
 
+  functions_extension_version = each.value.functions_extension_version
+
   identity {
     type         = each.value.identity.type
     identity_ids = each.value.identity.identity_ids
   }
 
-  storage_account_name          = each.value.storage_account_name
-  storage_uses_managed_identity = each.value.storage_uses_managed_identity
-  functions_extension_version   = each.value.functions_extension_version
+  storage_account_access_key = each.value.storage_account_access_key
+  storage_account_name       = each.value.storage_account_name
 
   virtual_network_subnet_id = each.value.virtual_network_subnet_integration_subnet_id
 

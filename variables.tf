@@ -112,9 +112,9 @@ variable "windows_function_apps" {
       public_network_access_enabled                = bool
       sticky_settings                              = map(any)
       storage_account                              = map(any)
+      storage_account_access_key                   = string
       storage_account_name                         = string
       storage_uses_managed_identity                = bool
-      storage_account_access_key                   = string
       storage_account_id                           = string
       tags                                         = map(any)
       virtual_network_subnet_private_endpoint_id   = string
