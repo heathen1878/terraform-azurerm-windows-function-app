@@ -35,7 +35,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
       for_each = each.value.site_config.application_stack.java_version != null ? { "application_stack" = "java" } : {}
 
       content {
-        dotnet_version = each.value.site_config.application_stack.java_version
+        java_version = each.value.site_config.application_stack.java_version
       }
     }
 
@@ -43,7 +43,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
       for_each = each.value.site_config.application_stack.node_version != null ? { "application_stack" = "node" } : {}
 
       content {
-        dotnet_version = each.value.site_config.application_stack.node_version
+        node_version = each.value.site_config.application_stack.node_version
       }
     }
 
@@ -51,7 +51,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
       for_each = each.value.site_config.application_stack.powershell_core_version != null ? { "application_stack" = "powershell" } : {}
 
       content {
-        dotnet_version = each.value.site_config.application_stack.powershell_core_version
+        powershell_core_version = each.value.site_config.application_stack.powershell_core_version
       }
     }
 
