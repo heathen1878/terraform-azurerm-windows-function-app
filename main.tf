@@ -98,6 +98,6 @@ resource "azurerm_role_assignment" "windows_function_app" {
 
   scope                = each.value.storage_account_id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_function_app.windows_function_app[each.key].identity[0].principal_id
+  principal_id         = azurerm_windows_function_app.windows_function_app[each.key].identity[0].principal_id
 }
 
