@@ -8,6 +8,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
 
   site_config {
     always_on = each.value.site_config.always_on
+    vnet_route_all_enabled - each.value.site_config.vnet_route_all_enabled
   }
 
   identity {
