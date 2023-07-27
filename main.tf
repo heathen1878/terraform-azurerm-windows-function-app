@@ -11,8 +11,8 @@ resource "azurerm_windows_function_app" "windows_function_app" {
     api_definition_url       = each.value.site_config.api_definition_url
     api_management_api_id    = each.value.site_config.api_management_api_id
     app_command_line         = each.value.site_config.app_command_line
-    app_scale_limit          = each.value.site_configapp_scale_limit
-    application_insights_key = each.value.site_configapplication_insights_key
+    app_scale_limit          = each.value.site_config.app_scale_limit
+    application_insights_key = each.value.site_config.application_insights_key
 
     dynamic "application_stack" {
       for_each = each.value.site_config.application_stack.use_custom_runtime == true ? { "application_stack" = "use_custom_runtime" } : {}
@@ -57,7 +57,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
 
     app_service_logs {
       disk_quota_mb         = each.value.site_config.app_service_logs.disk_quota_mb
-      retention_period_days = each.value.site_config.app_service_logs.retention_in_days
+      retention_period_days = each.value.site_config.app_service_logs.retention_period_days
 
     }
 
