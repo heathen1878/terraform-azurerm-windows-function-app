@@ -7,9 +7,89 @@ resource "azurerm_windows_function_app" "windows_function_app" {
   service_plan_id     = each.value.service_plan_id
 
   site_config {
-    always_on = each.value.site_config.always_on
-    vnet_route_all_enabled = each.value.site_config.vnet_route_all_enabled
+    always_on                = each.value.site_config.always_on
+    api_definition_url       = each.value.site_config.api_definition_url
+    api_management_api_id    = each.value.site_config.api_management_api_id
+    app_command_line         = each.value.site_config.app_command_line
+    app_scale_limit          = each.value.app_scale_limit
+    application_insights_key = each.value.application_insights_key
+
+    dynamic "application_stack" {
+      for_each = each.value.site_config.application_stack.use_custom_runtime == true ? { "application_stack" = "use_custom_runtime" } : {}
+
+      content {
+        use_custom_runtime = each.value.application_stack.use_custom_runtime
+      }
+    }
+
+    dynamic "application_stack" {
+      for_each = each.value.site_config.application_stack.dotnet_version != null ? { "application_stack" = "dotnet" } : {}
+
+      content {
+        dotnet_version              = each.value.site_config.application_stack.dotnet_version
+        use_dotnet_isolated_runtime = each.value.site_config.application_stack.use_dotnet_isolated_runtime
+      }
+    }
+
+    dynamic "application_stack" {
+      for_each = each.value.site_config.application_stack.java_version != null ? { "application_stack" = "java" } : {}
+
+      content {
+        dotnet_version = each.value.site_config.application_stack.java_version
+      }
+    }
+
+    dynamic "application_stack" {
+      for_each = each.value.site_config.application_stack.node_version != null ? { "application_stack" = "node" } : {}
+
+      content {
+        dotnet_version = each.value.site_config.application_stack.node_version
+      }
+    }
+
+    dynamic "application_stack" {
+      for_each = each.value.site_config.application_stack.powershell_core_version != null ? { "application_stack" = "powershell" } : {}
+
+      content {
+        dotnet_version = each.value.site_config.application_stack.powershell_core_version
+      }
+    }
+
+    app_service_logs {
+      disk_quota_mb         = each.value.app_service_logs.disk_quota_mb
+      retention_period_days = each.value.app_service_logs.retention_in_days
+
+    }
+
+    dynamic "cors" {
+      for_each = length(each.value.site_config.cors.allowed_origins) != 0 ? { "cors" = "enabled" } : {}
+
+      content {
+        allowed_origins     = each.value.site_config.cors.allowed_origins
+        support_credentials = each.value.site_config.cors.support_credentials
+      }
+    }
+
+    default_documents                 = each.value.site_config.default_documents
+    elastic_instance_minimum          = each.value.site_config.elastic_instance_minimum
+    ftps_state                        = each.value.site_config.ftps_state
+    health_check_eviction_time_in_min = each.value.site_config.health_check_eviction_time_in_min
+    health_check_path                 = each.value.site_config.health_check_path
+    http2_enabled                     = each.value.site_config.http2_enabled
+    load_balancing_mode               = each.value.site_config.load_balancing_mode
+    managed_pipeline_mode             = each.value.site_config.managed_pipeline_mode
+    minimum_tls_version               = each.value.site_config.minimum_tls_version
+    pre_warmed_instance_count         = each.value.site_config.pre_warmed_instance_count
+    remote_debugging_enabled          = each.value.site_config.remote_debugging_enabled
+    remote_debugging_version          = each.value.site_config.remote_debugging_version
+    runtime_scale_monitoring          = each.value.site_config.runtime_scale_monitoring
+    use_32_bit_worker                 = each.value.site_config.use_32_bit_worker
+    vnet_route_all_enabled            = each.value.site_config.vnet_route_all_enabled
+    websockets_enabled                = each.value.site_config.websockets_enabled
+    worker_count                      = each.value.site_config.worker_count
   }
+
+  app_settings = each.value.app_settings
 
   identity {
     type         = each.value.identity.type
