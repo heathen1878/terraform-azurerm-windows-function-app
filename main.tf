@@ -25,7 +25,6 @@ resource "azurerm_windows_function_app" "windows_function_app" {
 }
 
 resource "azurerm_windows_function_app_slot" "windows_function_app" {
-
   for_each = {
     for key, value in var.windows_function_apps : key => value
     if value.deploy_slot == true
@@ -92,5 +91,13 @@ resource "azurerm_private_endpoint" "windows_function_app_slot" {
     private_dns_zone_ids = each.value.private_dns_zone_ids
   }
 
+}
+
+resource "azurerm_role_assignment" "windows_function_app" {
+  for_each = var.windows_function_apps
+
+  scope                = each.value.storage_account_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_function_app.windows_function_app[each.key].identity[0].principal_id
 }
 
