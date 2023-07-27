@@ -82,7 +82,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
     pre_warmed_instance_count         = each.value.site_config.pre_warmed_instance_count
     remote_debugging_enabled          = each.value.site_config.remote_debugging_enabled
     remote_debugging_version          = each.value.site_config.remote_debugging_version
-    runtime_scale_monitoring          = each.value.site_config.runtime_scale_monitoring
+    runtime_scale_monitoring_enabled  = each.value.site_config.runtime_scale_monitoring
     use_32_bit_worker                 = each.value.site_config.use_32_bit_worker
     vnet_route_all_enabled            = each.value.site_config.vnet_route_all_enabled
     websockets_enabled                = each.value.site_config.websockets_enabled
