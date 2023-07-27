@@ -89,7 +89,9 @@ resource "azurerm_windows_function_app" "windows_function_app" {
     worker_count                      = each.value.site_config.worker_count
   }
 
-  app_settings = each.value.app_settings
+  app_settings = merge(each.value.app_settings, {
+    WEBSITE_CONTENTSHARE = format("%s-content", each.key)
+  })
 
   identity {
     type         = each.value.identity.type
