@@ -90,7 +90,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
   }
 
   app_settings = merge(each.value.app_settings, {
-    WEBSITE_CONTENTSHARE = format("%s-content", each.key)
+    WEBSITE_CONTENTSHARE = format("%s-content", substr(each.value.name, 5, -1))
   })
 
   identity {
