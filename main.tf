@@ -108,6 +108,7 @@ resource "azurerm_windows_function_app" "windows_function_app" {
 
 }
 
+# TODO: Not yet implemented
 resource "azurerm_windows_function_app_slot" "windows_function_app" {
   for_each = {
     for key, value in var.windows_function_apps : key => value
@@ -151,6 +152,7 @@ resource "azurerm_private_endpoint" "windows_function_app" {
 
 }
 
+# TODO: Not yet implemented
 resource "azurerm_private_endpoint" "windows_function_app_slot" {
   for_each = {
     for key, value in var.windows_function_apps : key => value
